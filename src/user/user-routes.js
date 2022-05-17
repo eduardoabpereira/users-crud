@@ -1,6 +1,5 @@
 import UserController from './user-controller'
 import express from 'express'
-import { send } from 'express/lib/response'
 const userRouter = express.Router()
 const userController = new UserController()
 
