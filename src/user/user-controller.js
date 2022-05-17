@@ -16,6 +16,7 @@ class UserController {
     const params = {}
     if(idUser !== undefined && idUser !== null) {
       params._id = idUser
+      return User.findOne(params)
     }
     return User.find(params)
     }

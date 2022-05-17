@@ -1,5 +1,6 @@
 import UserController from './user-controller'
 import express from 'express'
+import { send } from 'express/lib/response'
 const userRouter = express.Router()
 const userController = new UserController()
 
@@ -34,7 +35,7 @@ userRouter.get('/', (req, res, next) => {
 })
 
 //UPDATE
-userRouter.put('/:_id', (req, res, next) => {
+userRouter.put('/update/:_id', (req, res, next) => {
   userController.updateUser(req.params._id, req.body)
   .then(user => res.status(200).send(user))
   .catch((err) => {
@@ -44,7 +45,7 @@ userRouter.put('/:_id', (req, res, next) => {
 })
 
 //DELETE
-userRouter.delete('/:_id', (req, res, next) => {
+userRouter.delete('/delete/:_id', (req, res, next) => {
   userController.deleteUser(req.params._id)
   .then(user => res.status(200).send(user))
   .catch((err) => {
