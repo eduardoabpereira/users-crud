@@ -1,5 +1,7 @@
 import UserController from './user-controller'
 import express from 'express'
+import User from './user-model'
+import fs from 'fs'
 const userRouter = express.Router()
 const userController = new UserController()
 
@@ -8,8 +10,12 @@ userRouter.post('/register', (req, res, next) => {
   userController.registerUser(req.body)
   .then(user => res.status(200).send(user))
   .catch((err) => {
-    console.log('Falha ao cadastrar usuário: ', err)
-    next
+    if (User.findOne(req.body.email)) {
+      return res.send('Error: usuário já existe')
+    } else {
+    console.log('Falha ao cadastrar usuário')
+    return res.status(400).send('Falha ao cadastrar usuário').next()
+  }
   })
 })
 
@@ -51,6 +57,17 @@ userRouter.delete('/delete/:_id', (req, res, next) => {
     console.log('Falha ao deletar usuário: ', err)
     next
   })
+})
+
+//SAVE USER ON FILE
+userRouter.get('/save/:_id', (req, res, next) => {
+  userController.searchUser(req.params._id)
+  .then(user => {
+    res.status(200).send(user)
+    const file = JSON.stringify(user)
+    fs.writeFileSync('./usersSaved.json', file, {flag: 'a+'})
+  })
+  .catch(err => console.log('Algo deu errado: ', err))
 })
 
 export default userRouter

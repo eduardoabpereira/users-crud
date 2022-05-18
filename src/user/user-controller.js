@@ -28,6 +28,11 @@ class UserController {
   deleteUser(idUser) {
     return User.findOneAndDelete({_id: idUser})
   }
+
+  saveUser(idUser) {
+    User.searchUser(idUser)
+  }
+
 }
 
 export default UserController
