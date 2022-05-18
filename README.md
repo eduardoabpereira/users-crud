@@ -1,2 +1,5 @@
-# users-crud
-CRUDS studies with users
+# Users APIRest
+Users APIRest for study purposes.
+
+## Technologies
+ExpressJS - MongoDB and Mongoose - Swagger and OpenAPI
